@@ -27,8 +27,9 @@ open class PullUpController: UIViewController {
     /**
      The closure to execute when the view controller's view is dragged.
      The point, expressed in the pull up controller parent coordinate system, is provided in the closure parameter.
+     Also duration animation time is provided in this closure, in case if this actions performs with animation.
      */
-    open var onDrag: ((_ point: CGFloat) -> Void)?
+    open var onDrag: ((_ point: CGFloat, _ animationDuration: TimeInterval?) -> Void)?
     
     /**
      The desired height in screen units expressed in the pull up controller coordinate system that will be initially showed.
@@ -326,7 +327,7 @@ open class PullUpController: UIViewController {
             value = min(value, parentViewHeight - pullUpControllerPreviewOffset)
         }
         topConstraint?.constant = value
-        onDrag?(value)
+        onDrag?(value, animationDuration)
         
         UIView.animate(
             withDuration: animationDuration ?? 0,

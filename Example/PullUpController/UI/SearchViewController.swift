@@ -50,7 +50,7 @@ class SearchViewController: PullUpController {
             print("didMoveToStickyPoint \(point)")
         }
         
-        onDrag = { point in
+        onDrag = { (point, animationDuration) in
             print("onDrag: \(point)")
         }
     }

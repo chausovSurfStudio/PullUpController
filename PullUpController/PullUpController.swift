@@ -79,6 +79,11 @@ open class PullUpController: UIViewController {
         sc_allStickyPoints.append(contentsOf: pullUpControllerMiddleStickyPoints)
         return sc_allStickyPoints.sorted()
     }
+
+    /**
+     If you setup this view and embedded pan gesture will begin from it - than it would be not handled
+     */
+    public var unhandledView: UIView?
     
     private var leftConstraint: NSLayoutConstraint?
     private var topConstraint: NSLayoutConstraint?
@@ -363,6 +368,16 @@ extension PullUpController: UIGestureRecognizerDelegate {
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                                   shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard
+            let touchView = touch.view,
+            let unhandledView = unhandledView,
+            touchView.isDescendant(of: unhandledView) else {
+                return false
+        }
         return true
     }
     

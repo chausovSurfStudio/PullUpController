@@ -372,11 +372,8 @@ extension PullUpController: UIGestureRecognizerDelegate {
     }
 
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        guard
-            let touchView = touch.view,
-            let unhandledView = unhandledView,
-            touchView.isDescendant(of: unhandledView) else {
-                return false
+        if let touchView = touch.view, let unhandledView = unhandledView {
+            return !touchView.isDescendant(of: unhandledView)
         }
         return true
     }

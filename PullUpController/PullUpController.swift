@@ -84,6 +84,10 @@ open class PullUpController: UIViewController {
      If you setup this view and embedded pan gesture will begin from it - than it would be not handled
      */
     public var unhandledView: UIView?
+    /**
+     This value will be returned into the gesture delegate method 'shouldRecognizeSimultaneouslyWith:', 'true' by default
+     */
+    public var allowsSimultaneouslyGestures: Bool = true
     
     private var leftConstraint: NSLayoutConstraint?
     private var topConstraint: NSLayoutConstraint?
@@ -368,7 +372,7 @@ extension PullUpController: UIGestureRecognizerDelegate {
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                                   shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return allowsSimultaneouslyGestures
     }
 
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {

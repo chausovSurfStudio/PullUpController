@@ -411,12 +411,16 @@ extension UIViewController {
      Adds the specified pull up view controller as a child of the current view controller.
      - parameter pullUpController: the pull up controller to remove as a child from the current view controller.
      - parameter animated: Pass true to animate the removing; otherwise, pass false.
+     - parameter completion: calls in the end of dismiss animation
      */
-    open func removePullUpController(_ pullUpController: PullUpController, animated: Bool) {
+    open func removePullUpController(_ pullUpController: PullUpController,
+                                     animated: Bool,
+                                     completion: (() -> Void)? = nil) {
         pullUpController.pullUpControllerMoveToVisiblePoint(0, animated: animated) {
             pullUpController.willMove(toParent: nil)
             pullUpController.view.removeFromSuperview()
             pullUpController.removeFromParent()
+            completion?()
         }
     }
     
